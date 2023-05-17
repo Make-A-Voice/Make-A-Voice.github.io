@@ -51,13 +51,13 @@
 
 <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
     <h2 id="model-overview" style="text-align: center;">Make-A-Voice Overview</h2>
-    <body>
+    <div>
     <p><br/></p>
     <p style="text-align: center;">
         <img src="arch.png" height="200" width="1050" class="img-fluid">
     </p>
     <p><br/></p>
-    </body>
+  </div>
         <p>
           Make-A-Voice is considered a unified voice synthesis framework with a "coarse-to-fine" design that progressively enhances the modeling of voice signals by injecting desired conditioning information, which is organized in three main stages as illustrated in the upper Figure: 1) semantic stage <i>S<sub>1</sub></i>, speech or text inputs are transformed into a sequence of semantic tokens <i>s</i>, 2) acoustic stage <i>S<sub>2</sub></i>, acoustic tokens <i>a</i> with a variety of conditions (speaker, emotion, prosody, and style) are generated autoregressively from the "pseudo" text (i.e., semantic tokens <i>s</i>); 3) generation stage <i>S<sub>3</sub></i>, a unit-based vocoder synthesizes high-fidelity waveforms from compressed acoustic representations. 
         </p>
@@ -65,18 +65,20 @@
 
 <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
     <h2 id="model-overview" style="text-align: left;">Table of Contents</h2>
-    <body>
+    <div>
     <p style="text-align: left;">
     <ul style="list-style: outside none none !important;">
        <li><a href="#tts" class="btn border-white bg-white fw-bold">Text to Speech</a></li>
        <li><a href="#svs" class="btn border-white bg-white fw-bold">Singing Voice Synthesis</a></li>
        <li><a href="#vc" class="btn border-white bg-white fw-bold">Voice Conversion</a></li>
-       <li><a href="#crosslingualemotion" class="btn border-white bg-white fw-bold">Cross Lingual Timbre Transferring</a></li>
-       <li><a href="#emotion" class="btn border-white bg-white fw-bold">Emotion Transferring</a></li>
+       <li><a href="#crosslingual" class="btn border-white bg-white fw-bold">Cross Lingual Style Transferring</a></li>
        <li><a href="#noise" class="btn border-white bg-white fw-bold">Noise Condition Transferring</a></li>
+       <li><a href="#emotion" class="btn border-white bg-white fw-bold">Emotion Transferring</a></li>
+       <li><a href="#valle" class="btn border-white bg-white fw-bold">Comparison with VALL-E</a></li>
+       <li><a href="#speartts" class="btn border-white bg-white fw-bold">Comparison with SPEAR-TTS</a></li>
     </ul>
     </p>
-    </body>
+  </div>
 </div>
 
 
@@ -113,11 +115,11 @@
              <!-- <tr>
                <td colspan="4" style="text-align: center">LibriSpeech (test-clean)</td>
              </tr> -->
-             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
-             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
-             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
-             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
-             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
           </tbody>
         </table>
       </div>
@@ -155,11 +157,11 @@
              <!-- <tr>
                <td colspan="4" style="text-align: center">LibriSpeech (test-clean)</td>
              </tr> -->
-             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
-             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
-             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
-             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
-             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
           </tbody>
         </table>
       </div>
@@ -197,11 +199,204 @@
              <!-- <tr>
                <td colspan="4" style="text-align: center">LibriSpeech (test-clean)</td>
              </tr> -->
-             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
-             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
-             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
-             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
-             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="container shadow p-5 mb-5 bg-white rounded">
+      <h3>Cross Lingual Style Transferring<a id="crosslingual"/></h3>
+
+      <p style="margin-top: 2em">
+        In this section, we provide samples to show the cross-lingual style tranferring ability of our model.
+              </p>
+      <div class="container pt-3 table-responsive">
+        <table
+          class="table table-hover"
+          id="crosslingual-table"
+        >
+          <thead>
+            <tr>
+              <th style="text-align: center">Source Audio</th>
+              <th style="text-align: center">Prompt</th>
+              <th style="text-align: center">Make-A-Voice</th>
+            </tr>
+          </thead>
+          <tbody>
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LJSpeech (test set)</td>
+             </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+            -->
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LibriSpeech (test-clean)</td>
+             </tr> -->
+             <tr height=100px> <td style="text-align: center"></td> <td style="text-align: center"></td> <td style="text-align: center"></td></tr>
+             <tr height=100px> <td style="text-align: center"></td> <td style="text-align: center"></td> <td style="text-align: center"></td></tr>
+             <tr height=100px> <td style="text-align: center"></td> <td style="text-align: center"></td> <td style="text-align: center"></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="container shadow p-5 mb-5 bg-white rounded">
+      <h3>Noise Condition Transferring<a id="noise"/></h3>
+
+      <p style="margin-top: 2em">
+        In this section, we provide samples to show the noise condition tranferring ability of our model.
+              </p>
+      <div class="container pt-3 table-responsive">
+        <table
+          class="table table-hover"
+          id="noise-table"
+        >
+          <thead>
+            <tr>
+              <th style="text-align: center">Source Audio</th>
+              <th style="text-align: center">Prompt</th>
+              <th style="text-align: center">Make-A-Voice</th>
+            </tr>
+          </thead>
+          <tbody>
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LJSpeech (test set)</td>
+             </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+            -->
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LibriSpeech (test-clean)</td>
+             </tr> -->
+             <tr height=100px> <td style="text-align: center"></td> <td style="text-align: center"></td> <td style="text-align: center"></td></tr>
+             <tr height=100px> <td style="text-align: center"></td> <td style="text-align: center"></td> <td style="text-align: center"></td></tr>
+             <tr height=100px> <td style="text-align: center"></td> <td style="text-align: center"></td> <td style="text-align: center"></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="container shadow p-5 mb-5 bg-white rounded">
+      <h3>Emotion Transferring<a id="emotion"/></h3>
+
+      <p style="margin-top: 2em">
+        In this section, we provide samples to show the emotion tranferring ability of our model.
+              </p>
+      <div class="container pt-3 table-responsive">
+        <table
+          class="table table-hover"
+          id="emotion-table"
+        >
+          <thead>
+            <tr>
+              <th style="text-align: center">Emotion</th>
+              <th style="text-align: center">Source Audio</th>
+              <th style="text-align: center">Prompt</th>
+              <th style="text-align: center">Make-A-Voice</th>
+            </tr>
+          </thead>
+          <tbody>
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LJSpeech (test set)</td>
+             </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+            -->
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LibriSpeech (test-clean)</td>
+             </tr> -->
+             <tr height=100px> <td style="text-align: center">Amused</td> <td style="text-align: center"></td> <td style="text-align: center"></td> <td style="text-align: center"></td></tr>
+             <tr height=100px> <td style="text-align: center">Angry</td> <td style="text-align: center"></td> <td style="text-align: center"></td> <td style="text-align: center"></td></tr>
+             <tr height=100px> <td style="text-align: center">Sad</td> <td style="text-align: center"></td> <td style="text-align: center"></td> <td style="text-align: center"></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="container shadow p-5 mb-5 bg-white rounded">
+      <h3>Comparison with VALL-E<a id="valle"/></h3>
+
+      <p style="margin-top: 2em">
+        In this section, we compare our results with demo samples of VALL-E.
+              </p>
+      <div class="container pt-3 table-responsive">
+        <table
+          class="table table-hover"
+          id="valle-table"
+        >
+          <thead>
+            <tr>
+              <th style="text-align: center">Text</th>
+              <th style="text-align: center">Prompt</th>
+              <th style="text-align: center">VALL-E</th>
+              <th style="text-align: center">Make-A-Voice (ours)</th>
+            </tr>
+          </thead>
+          <tbody>
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LJSpeech (test set)</td>
+             </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+            -->
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LibriSpeech (test-clean)</td>
+             </tr> -->
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="container shadow p-5 mb-5 bg-white rounded">
+      <h3>Comparison with SPEAR-TTS<a id="speartts"/></h3>
+
+      <p style="margin-top: 2em">
+        In this section, we compare our results with demo samples of SPEAR-TTS.
+              </p>
+      <div class="container pt-3 table-responsive">
+        <table
+          class="table table-hover"
+          id="speartts-table"
+        >
+          <thead>
+            <tr>
+              <th style="text-align: center">Text</th>
+              <th style="text-align: center">Prompt</th>
+              <th style="text-align: center">SPEAR-TTS</th>
+              <th style="text-align: center">Make-A-Voice (ours)</th>
+            </tr>
+          </thead>
+          <tbody>
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LJSpeech (test set)</td>
+             </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+            -->
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LibriSpeech (test-clean)</td>
+             </tr> -->
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td></tr>
           </tbody>
         </table>
       </div>

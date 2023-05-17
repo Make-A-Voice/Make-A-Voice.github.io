@@ -49,7 +49,57 @@ function generateVoiceConversion(tableId) {
   }
 }
 
+function generateCrossLingual(tableId) {
+  let table = document.getElementById(tableId);
+  let ext = ['_ref.wav', '_prompt.wav', '_syn.wav'];
+
+  for (var i = 0; i < 3; i++) {
+    generateExampleRow(table.rows[1 + i], 'data/crosslingual/' + i, ext, 0);
+  }
+}
+
+function generateNoise(tableId) {
+  let table = document.getElementById(tableId);
+  let ext = ['_ref.wav', '_prompt.wav', '_syn.wav'];
+
+  for (var i = 0; i < 3; i++) {
+    generateExampleRow(table.rows[1 + i], 'data/noise/' + i, ext, 0);
+  }
+}
+
+function generateEmotion(tableId) {
+  let table = document.getElementById(tableId);
+  let ext = ['_ref.wav', '_prompt.wav', '_syn.wav'];
+
+  for (var i = 0; i < 3; i++) {
+    generateExampleRow(table.rows[1 + i], 'data/emotion/' + i, ext, 1);
+  }
+}
+
+function generateValle(tableId) {
+  let table = document.getElementById(tableId);
+  let ext = ['_text.txt', '_prompt.wav', '_valle.wav','_ours.wav'];
+
+  for (var i = 0; i < 4; i++) {
+    generateExampleRow(table.rows[1 + i], 'data/valle/' + i, ext, 0);
+  }
+}
+
+function generateSpearTTS(tableId) {
+  let table = document.getElementById(tableId);
+  let ext = ['_text.txt', '_prompt.wav', '_speartts.wav','_ours.wav'];
+
+  for (var i = 0; i < 2; i++) {
+    generateExampleRow(table.rows[1 + i], 'data/speartts/' + i, ext, 0);
+  }
+}
+
 
 generateTextToSpeech('text-to-speech-table')
 generateSingingVoiceSynthesis('singing-voice-synthesis-table')
 generateVoiceConversion('voice-conversion-table')
+generateCrossLingual('crosslingual-table')
+generateNoise('noise-table')
+generateEmotion('emotion-table')
+generateValle('valle-table')
+generateSpearTTS('speartts-table')
