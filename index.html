@@ -81,26 +81,25 @@
 
 
     <div class="container shadow p-5 mb-5 bg-white rounded">
-      <h3>Supervision Efficiency<a id="efficiency"/></h3>
-      <p class="mb-0">
-In the first set of samples, we demonstrate that SPEAR-TTS synthesizes speech that adheres to the input text even when trained on very limited parallel data.
-      </p>
+      <h3>Text to Speech<a id="tts"/></h3>
 
       <p style="margin-top: 2em">
-In the following table, we provide speech samples produced by SPEAR-TTS trained on a 15 min subsample of LJSpeech (Ito and Johnson, 2017). As inputs, we consider transcripts from LibriTTS test-clean examples (Zen et al., 2019). The models did not see any of these examples during training. In this experiment, we do not prompt our model to follow any specific voice. Note that SPEAR-TTS generates speech in multiple voices, even though it is trained on the single-speaker parallel data. As a reference baseline, we also provide speech samples produced by a modification of FastSpeech2 (Ren et al, 2020), adapted for the low-resource scenario (Pine, 2022). We refer to it as FastSpeech2-LR. These models are trained on subsets of LJSpeech.
+        In this section, we provide the generated audio samples with other systems on the text-to-speech task.
               </p>
       <div class="container pt-3 table-responsive">
         <table
           class="table table-hover"
-          id="supervision-efficiency-table"
+          id="text-to-speech-table"
         >
           <thead>
             <tr>
               <th style="text-align: center">Text</th>
               <th style="text-align: center">Ground-truth</th>
-              <th style="text-align: center">FastSpeech2-LR (24 h)</th>
-              <th style="text-align: center">FastSpeech2-LR (15 min)</th>
-              <th style="text-align: center">SPEAR-TTS (15 min)</th>
+              <th style="text-align: center">Prompt</th>
+              <th style="text-align: center">MetaStyleSpeech</th>
+              <th style="text-align: center">YourTTS</th>
+              <th style="text-align: center">GenerSpeech</th>
+              <th style="text-align: center">Make-A-Voice (ours)</th>
             </tr>
           </thead>
           <tbody>
@@ -114,61 +113,15 @@ In the following table, we provide speech samples produced by SPEAR-TTS trained 
              <!-- <tr>
                <td colspan="4" style="text-align: center">LibriSpeech (test-clean)</td>
              </tr> -->
-             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
-             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
-             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
-             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
-             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
-             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
-             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
-             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
-             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
           </tbody>
         </table>
       </div>
 
-      <p style="margin-top: 2em">
-      In the next experiment, we show how fidelity to the text changes for various training scenarios, as we vary the amount of available parallel data. '-' indicates that the speech synthesized by the corresponding model is not intelligible.
-
-      </p>
-      <div class="container pt-3 table-responsive">
-        <table
-          class="table table-hover"
-          id="fidelity-vs-amount-paired-data"
-        >
-          <thead>
-            <tr>
-              <th width="25%">Amount of paired data</th>
-              <th width="25%">From scratch</th>
-              <th width="25%">+ Pretraining</th>
-              <th width="25%">+ Backtranslation</th>
-            </tr>
-          </thead>
-          <tbody>
-             <tr>
-               <td colspan="4" style="text-align: center">Text: <font size="-1"> Whoever, therefore, is ambitious of distinction in this way ought to be prepared for disappointment. </font></td>
-             </tr>
-             <tr> <td>24h</td> <td></td> <td></td> <td></td> </tr>
-             <tr> <td>12h</td> <td></td> <td></td> <td></td> </tr>
-             <tr> <td>3h</td> <td></td> <td></td> <td></td> </tr>
-             <tr> <td>2h</td> <td></td> <td></td> <td></td> </tr>
-             <tr> <td>1h</td> <td></td> <td></td> <td></td> </tr>
-             <tr> <td>30min</td> <td>-</td> <td></td> <td></td> </tr>
-             <tr> <td>15min</td> <td>-</td> <td>-</td> <td></td> </tr>
-             <tr>
-              <td colspan="4" style="text-align: center">Text: <font size="-1"> Suddenly, for the purpose of restoring peace and order, Spring, accompanied by his whole court, made his appearance. </font></td>
-             </tr>
-             <tr> <td>24h</td> <td></td> <td></td> <td></td> </tr>
-             <tr> <td>12h</td> <td></td> <td></td> <td></td> </tr>
-             <tr> <td>3h</td> <td></td> <td></td> <td></td> </tr>
-             <tr> <td>2h</td> <td></td> <td></td> <td></td> </tr>
-             <tr> <td>1h</td> <td></td> <td></td> <td></td> </tr>
-             <tr> <td>30min</td> <td>-</td> <td></td> <td></td> </tr>
-             <tr> <td>15min</td> <td>-</td> <td>-</td> <td></td> </tr>
-
-          </tbody>
-        </table>
-      </div>
     </div>
 
     <div class="container shadow p-5 mb-5 bg-white rounded">
