@@ -9,6 +9,7 @@ function generateExampleRow(table_row, base_path, filename_ext, col_offset) {
   for (var i = 0; i < filename_ext.length; i++) {
     let p = base_path + filename_ext[i];
     let cell = table_row.cells[col_offset + i];
+    console.log(table_row.cells.length)
     if (p.endsWith('txt')) {
       var req = new XMLHttpRequest();
       req.open("GET", p, false);
@@ -30,5 +31,25 @@ function generateTextToSpeech(tableId) {
   }
 }
 
+function generateSingingVoiceSynthesis(tableId) {
+  let table = document.getElementById(tableId);
+  let ext = ['_text.txt', '_gt.wav', '_fftsinger.wav', '_diffsinger.wav', '_ours.wav'];
+
+  for (var i = 0; i < 5; i++) {
+    generateExampleRow(table.rows[1 + i], 'data/m4singer/' + i, ext, 0);
+  }
+}
+
+function generateVoiceConversion(tableId) {
+  let table = document.getElementById(tableId);
+  let ext = ['_source.wav', '_prompt.wav', '_nansy.wav', '_ppg-vc.wav', '_ours.wav'];
+
+  for (var i = 0; i < 5; i++) {
+    generateExampleRow(table.rows[1 + i], 'data/vc/' + i, ext, 0);
+  }
+}
+
 
 generateTextToSpeech('text-to-speech-table')
+generateSingingVoiceSynthesis('singing-voice-synthesis-table')
+generateVoiceConversion('voice-conversion-table')
