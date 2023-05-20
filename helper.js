@@ -54,7 +54,7 @@ function generateCrossLingual(tableId) {
   let ext = ['_ref.wav', '_prompt.wav', '_syn.wav'];
 
   for (var i = 0; i < 3; i++) {
-    generateExampleRow(table.rows[1 + i], 'data/crosslingual/' + i, ext, 0);
+    generateExampleRow(table.rows[1 + i], 'data/cross_new/' + i, ext, 0);
   }
 }
 
@@ -63,7 +63,7 @@ function generateNoise(tableId) {
   let ext = ['_ref.wav', '_prompt.wav', '_syn.wav'];
 
   for (var i = 0; i < 3; i++) {
-    generateExampleRow(table.rows[1 + i], 'data/noise/' + i, ext, 0);
+    generateExampleRow(table.rows[1 + i], 'data/noise_new/' + i, ext, 0);
   }
 }
 
@@ -72,7 +72,7 @@ function generateEmotion(tableId) {
   let ext = ['_ref.wav', '_prompt.wav', '_syn.wav'];
 
   for (var i = 0; i < 3; i++) {
-    generateExampleRow(table.rows[1 + i], 'data/emotion/' + i, ext, 1);
+    generateExampleRow(table.rows[1 + i], 'data/emotion_new/' + i, ext, 1);
   }
 }
 
