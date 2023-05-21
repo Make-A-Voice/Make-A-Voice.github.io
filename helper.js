@@ -24,7 +24,7 @@ function generateExampleRow(table_row, base_path, filename_ext, col_offset) {
 
 function generateTextToSpeech(tableId) {
   let table = document.getElementById(tableId);
-  let ext = ['_text.txt', '_gt.wav', '_prompt.wav', '_metastylespeech.wav', '_yourtts.wav', '_generspeech.wav', '_ours.wav'];
+  let ext = ['_text.txt', '_prompt.wav', '_metastylespeech.wav', '_yourtts.wav', '_generspeech.wav', '_ours.wav'];
 
   for (var i = 0; i < 5; i++) {
     generateExampleRow(table.rows[1 + i], 'data/tts/' + i, ext, 0);
@@ -33,7 +33,7 @@ function generateTextToSpeech(tableId) {
 
 function generateSingingVoiceSynthesis(tableId) {
   let table = document.getElementById(tableId);
-  let ext = ['_text.txt', '_gt.wav', '_fftsinger.wav', '_diffsinger.wav', '_ours.wav'];
+  let ext = ['_text.txt', '_gt.wav', '_prompt.wav', '_fftsinger.wav', '_diffsinger.wav', '_ours.wav'];
 
   for (var i = 0; i < 5; i++) {
     generateExampleRow(table.rows[1 + i], 'data/m4singer/' + i, ext, 0);
