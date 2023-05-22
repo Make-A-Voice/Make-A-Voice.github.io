@@ -96,8 +96,8 @@ function generateSpearTTS(tableId) {
 
 
 generateTextToSpeech('text-to-speech-table')
-generateSingingVoiceSynthesis('singing-voice-synthesis-table')
 generateVoiceConversion('voice-conversion-table')
+generateSingingVoiceSynthesis('singing-voice-synthesis-table')
 generateCrossLingual('crosslingual-table')
 generateNoise('noise-table')
 generateEmotion('emotion-table')

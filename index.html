@@ -69,8 +69,8 @@
     <p style="text-align: left;">
     <ul style="list-style: outside none none !important;">
        <li><a href="#tts" class="btn border-white bg-white fw-bold">Text to Speech</a></li>
-       <li><a href="#svs" class="btn border-white bg-white fw-bold">Singing Voice Synthesis</a></li>
        <li><a href="#vc" class="btn border-white bg-white fw-bold">Voice Conversion</a></li>
+       <li><a href="#svs" class="btn border-white bg-white fw-bold">Singing Voice Synthesis</a></li>
        <li><a href="#crosslingual" class="btn border-white bg-white fw-bold">Cross Lingual Style Transferring</a></li>
        <li><a href="#noise" class="btn border-white bg-white fw-bold">Noise Condition Transferring</a></li>
        <li><a href="#emotion" class="btn border-white bg-white fw-bold">Emotion Transferring</a></li>
@@ -126,6 +126,48 @@
     </div>
 
     <div class="container shadow p-5 mb-5 bg-white rounded">
+      <h3>Voice Conversion<a id="vc"/></h3>
+
+      <p style="margin-top: 2em">
+        In this section, we provide the generated audio samples with other systems on the voice-conversion task.
+              </p>
+      <div class="container pt-3 table-responsive">
+        <table
+          class="table table-hover"
+          id="voice-conversion-table"
+        >
+          <thead>
+            <tr>
+              <th style="text-align: center">Source Audio</th>
+              <th style="text-align: center">Prompt</th>
+              <th style="text-align: center">NANSY</th>
+              <th style="text-align: center">ppg-vc</th>
+              <th style="text-align: center">Make-A-Voice (ours)</th>
+            </tr>
+          </thead>
+          <tbody>
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LJSpeech (test set)</td>
+             </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+            -->
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LibriSpeech (test-clean)</td>
+             </tr> -->
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="container shadow p-5 mb-5 bg-white rounded">
       <h3>Singing Voice Synthesis<a id="svs"/></h3>
 
       <p style="margin-top: 2em">
@@ -162,48 +204,6 @@
              <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
              <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
              <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
-          </tbody>
-        </table>
-      </div>
-
-    </div>
-
-    <div class="container shadow p-5 mb-5 bg-white rounded">
-      <h3>Voice Conversion<a id="vc"/></h3>
-
-      <p style="margin-top: 2em">
-        In this section, we provide the generated audio samples with other systems on the voice-conversion task.
-              </p>
-      <div class="container pt-3 table-responsive">
-        <table
-          class="table table-hover"
-          id="voice-conversion-table"
-        >
-          <thead>
-            <tr>
-              <th style="text-align: center">Source Audio</th>
-              <th style="text-align: center">Prompt</th>
-              <th style="text-align: center">NANSY</th>
-              <th style="text-align: center">ppg-vc</th>
-              <th style="text-align: center">Make-A-Voice (ours)</th>
-            </tr>
-          </thead>
-          <tbody>
-             <!-- <tr>
-               <td colspan="4" style="text-align: center">LJSpeech (test set)</td>
-             </tr>
-             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
-             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
-             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
-            -->
-             <!-- <tr>
-               <td colspan="4" style="text-align: center">LibriSpeech (test-clean)</td>
-             </tr> -->
-             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
-             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
-             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
-             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
-             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
           </tbody>
         </table>
       </div>
