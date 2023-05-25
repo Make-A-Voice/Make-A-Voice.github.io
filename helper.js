@@ -80,7 +80,7 @@ function generateValle(tableId) {
   let table = document.getElementById(tableId);
   let ext = ['_text.txt', '_prompt.wav', '_valle.wav','_ours.wav'];
 
-  for (var i = 0; i < 4; i++) {
+  for (var i = 0; i < 3; i++) {
     generateExampleRow(table.rows[1 + i], 'data/valle/' + i, ext, 0);
   }
 }
