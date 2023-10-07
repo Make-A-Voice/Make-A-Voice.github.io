@@ -1,0 +1,1 @@
+he was in deep converse with the clerk and entered the hall holding him by the arm
