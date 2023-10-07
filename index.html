@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MVoice</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="helper.js" defer></script>
+    <style>
+      td {
+        vertical-align: middle;
+        min-width: 200px;
+      }
+      audio {
+        width: 20vw;
+        min-width: 100px;
+        max-width: 220px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
+      <div class="text-center">
+        <h1>MVoice:</h1><h3>Multilingual Unified Voice Generation With Discrete Representation at Scale</h3>
+        <!-- <p class="lead fw-bold">
+          |<a
+            href="https://arxiv.org/abs/2302.03540"
+            class="btn border-white bg-white fw-bold"
+            >paper</a
+          >|
+        </p> -->
+        <p>
+
+
+        </p>
+        <!-- <p class="fst-italic mb-0">
+          Eugene Kharitonov, Damien Vincent,  Zalán Borsos, Raphaël Marinier, Sertan Girgin, Olivier Pietquin,
+          Matt Sharifi, Marco Tagliasacchi, Neil Zeghidour
+        </p> -->
+        <p><b>Anonymous Authors</b></p>
+      </div>
+      <p>
+        <b>Abstract.</b>  
+        Various applications of voice synthesis have been developed independently despite the fact that they generate “voice” as output in common. In addition, the majority of voice synthesis models currently rely on annotated data, but it is crucial to scale them to self-supervised datasets in order to effectively capture the wide range of acoustic variations presented in human voice, including speaker identity, emotion, and prosody. In this work, we propose MVoice, a multimodal spoken large language model for synthesizing and manipulating voice signals at scale. MVoice employs self-supervised voice tokens with the ``coarse-to-fine'' designs to first determine semantic meaning and then introduce condition signals for acoustic generation. It offers notable benefits with unified generation and transformation capabilities: 1) model and data scalability: without the requirement of scattered model-specific methodologies or annotations acoustic data, training could be scaled up in terms of data usage and model capability; and 2) controllability and conditioning flexibility: we investigate different conditioning mechanisms and effectively handle voice synthesis applications, including text-to-speech, voice conversion, singing voice synthesis, singing voice conversion, and speech-to-speech translation by re-synthesizing the discrete representations with prompt guidance. Experimental results demonstrate that MVoice exhibits superior audio quality and style similarity compared with competitive baseline models in monolingual/cross-lingual voice generation.
+
+      </p>
+    </div>
+
+<div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
+    <h2 id="model-overview" style="text-align: center;">MVoice Overview</h2>
+    <div>
+    <p><br/></p>
+    <p style="text-align: center;">
+        <img src="arch.png" height="200" width="1050" class="img-fluid">
+    </p>
+    <p><br/></p>
+  </div>
+        <p>
+          MVoice is considered a unified voice synthesis model with a "coarse-to-fine" design that progressively enhances the modeling of voice signals by injecting desired conditioning information, which is organized in two main stages as illustrated in Figure 1: 1) semantic stage <i>S<sub>1</sub></i>, speech or text inputs are transformed into a sequence of semantic tokens <i>s</i>, 2) acoustic stage <i>S<sub>2</sub></i>, acoustic tokens <i>a</i> with a variety of conditions (speaker, emotion, prosody, and style) are generated autoregressively from the "pseudo" text (i.e., semantic tokens <i>s</i>). In the end, a unit-based vocoder synthesizes high-fidelity waveforms from compressed acoustic representations. 
+        </p>
+</div>
+
+<div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
+    <h2 id="table-of-content" style="text-align: left;">Table of Contents</h2>
+    <div>
+    <p style="text-align: left;">
+    <ul style="list-style: outside none none !important;">
+       <li><a href="#tts" class="btn border-white bg-white fw-bold">Text to Speech</a></li>
+       <li><a href="#vc" class="btn border-white bg-white fw-bold">Voice Conversion</a></li>
+       <li><a href="#svs" class="btn border-white bg-white fw-bold">Singing Voice Synthesis</a></li>
+       <li><a href="#svc" class="btn border-white bg-white fw-bold">Singing Voice Conversion</a></li>
+       <li><a href="#crtts" class="btn border-white bg-white fw-bold">Crosslingual Text to Speech</a></li>
+       <li><a href="#valle" class="btn border-white bg-white fw-bold">Comparison with VALL-E</a></li>
+       <li><a href="#speartts" class="btn border-white bg-white fw-bold">Comparison with SPEAR-TTS</a></li>
+       <li><a href="#voicebox" class="btn border-white bg-white fw-bold">Comparison with VoiceBox</a></li>
+       <li><a href="#crvc" class="btn border-white bg-white fw-bold">Cross Lingual Style Transfer</a></li>
+       <li><a href="#emotion" class="btn border-white bg-white fw-bold">Emotion Transfer</a></li>
+       <li><a href="#noise" class="btn border-white bg-white fw-bold">Noise Condition Transfer</a></li>
+    </ul>
+    </p>
+  </div>
+</div>
+
+
+    <div class="container shadow p-5 mb-5 bg-white rounded">
+      <h3>Text to Speech<a id="tts"/></h3>
+
+      <p style="margin-top: 2em">
+        In this section, we provide the generated audio samples with other systems on the text-to-speech task.
+              </p>
+      <div class="container pt-3 table-responsive">
+        <table
+          class="table table-hover"
+          id="text-to-speech-table"
+        >
+          <thead>
+            <tr>
+              <th style="text-align: center">Text</th>
+              <th style="text-align: center">GT</th>
+              <th style="text-align: center">GenerSpeech</th>
+              <th style="text-align: center">YourTTS</th>
+              <th style="text-align: center">MVoice (ours)</th>
+            </tr>
+          </thead>
+          <tbody>
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LJSpeech (test set)</td>
+             </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+            -->
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LibriSpeech (test-clean)</td>
+             </tr> -->
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="container shadow p-5 mb-5 bg-white rounded">
+      <h3>Voice Conversion<a id="vc"/></h3>
+
+      <p style="margin-top: 2em">
+        In this section, we provide the generated audio samples with other systems on the voice-conversion task.
+              </p>
+      <div class="container pt-3 table-responsive">
+        <table
+          class="table table-hover"
+          id="voice-conversion-table"
+        >
+          <thead>
+            <tr>
+              <th style="text-align: center">Source Audio</th>
+              <th style="text-align: center">Prompt</th>
+              <th style="text-align: center">NANSY</th>
+              <th style="text-align: center">ppg-vc</th>
+              <th style="text-align: center">MVoice (ours)</th>
+            </tr>
+          </thead>
+          <tbody>
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LJSpeech (test set)</td>
+             </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+            -->
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LibriSpeech (test-clean)</td>
+             </tr> -->
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+
+    <div class="container shadow p-5 mb-5 bg-white rounded">
+      <h3>Singing Voice Synthesis<a id="svs"/></h3>
+
+      <p style="margin-top: 2em">
+        In this section, we provide the generated audio samples with other systems on the singing-voice-synthesis task.
+              </p>
+      <div class="container pt-3 table-responsive">
+        <table
+          class="table table-hover"
+          id="singing-voice-synthesis-table"
+        >
+          <thead>
+            <tr>
+              <th style="text-align: center">Text</th>
+              <th style="text-align: center">Ground-truth</th>
+              <th style="text-align: center">FFT-Singer</th>
+              <th style="text-align: center">DiffSinger</th>
+              <th style="text-align: center">MVoice (ours)</th>
+            </tr>
+          </thead>
+          <tbody>
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LJSpeech (test set)</td>
+             </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+            -->
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LibriSpeech (test-clean)</td>
+             </tr> -->
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td> <td></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="container shadow p-5 mb-5 bg-white rounded">
+      <h3>Singing Voice Conversion<a id="svc"/></h3>
+
+      <p style="margin-top: 2em">
+        In this section, we provide the generated audio samples with other systems on the singing-voice-conversion task.
+              </p>
+      <div class="container pt-3 table-responsive">
+        <table
+          class="table table-hover"
+          id="singing-voice-conversion-table"
+        >
+          <thead>
+            <tr>
+              <th style="text-align: center">Ground-truth</th>
+              <th style="text-align: center">Prompt</th>
+              <th style="text-align: center">MVoice (ours)</th>
+            </tr>
+          </thead>
+          <tbody>
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LJSpeech (test set)</td>
+             </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+            -->
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LibriSpeech (test-clean)</td>
+             </tr> -->
+             <tr height=100px style="text-align: center"> <td></td> <td></td> <td></td> </tr>
+             <tr height=100px style="text-align: center"> <td></td> <td></td> <td></td> </tr>
+             <tr height=100px style="text-align: center"> <td></td> <td></td> <td></td> </tr>
+             <tr height=100px style="text-align: center"> <td></td> <td></td> <td></td> </tr>
+             <tr height=100px style="text-align: center"> <td></td> <td></td> <td></td> </tr>
+             <tr height=100px style="text-align: center"> <td></td> <td></td> <td></td> </tr>
+             <tr height=100px style="text-align: center"> <td></td> <td></td> <td></td> </tr>
+             <tr height=100px style="text-align: center"> <td></td> <td></td> <td></td> </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="container shadow p-5 mb-5 bg-white rounded">
+      <h3>Crosslingual Text to Speech<a id="crtts"/></h3>
+      <p style="margin-top: 2em">
+        In this section, we provide the generated audio samples with other systems on the crosslingual text-to-speech task.
+              </p>
+
+      <h4>X-to-English</h4>
+      <div class="container pt-3 table-responsive">
+        <table
+          class="table table-hover"
+          id="crosslingual-text-to-speech-table-en"
+        >
+          <thead>
+            <tr>
+              <th style="text-align: center; width:max-content">Text</th>
+              <th style="text-align: center">Prompt Language</th>
+              <th style="text-align: center">Prompt</th>
+              <th style="text-align: center">Voicebox</th>
+              <th style="text-align: center">YourTTS</th>
+              <th style="text-align: center">MVoice (ours)</th>
+            </tr>
+          </thead>
+          <tbody>
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LJSpeech (test set)</td>
+             </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+            -->
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LibriSpeech (test-clean)</td>
+             </tr> -->
+             <tr height=150px> <td></td> <td style="text-align: center">French</td> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td style="text-align: center">Spanish</td> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td style="text-align: center">German</td> <td></td> <td></td> <td></td> <td></td> </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <hr>
+
+      <h4>X-to-German</h4>
+      <div class="container pt-3 table-responsive">
+        <table
+          class="table table-hover"
+          id="crosslingual-text-to-speech-table-de"
+        >
+          <thead>
+            <tr>
+              <th style="text-align: center; width:max-content">Text</th>
+              <th style="text-align: center">Prompt Language</th>
+              <th style="text-align: center">Prompt</th>
+              <th style="text-align: center">Voicebox</th>
+              <th style="text-align: center">YourTTS</th>
+              <th style="text-align: center">MVoice (ours)</th>
+            </tr>
+          </thead>
+          <tbody>
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LJSpeech (test set)</td>
+             </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+            -->
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LibriSpeech (test-clean)</td>
+             </tr> -->
+             <tr height=150px> <td></td> <td style="text-align: center">English</td> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td style="text-align: center">French</td> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td style="text-align: center">Spanish</td> <td></td> <td></td> <td></td> <td></td> </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <hr>
+
+      <h4>X-to-Chinese</h4>
+      <div class="container pt-3 table-responsive">
+        <table
+          class="table table-hover"
+          id="crosslingual-text-to-speech-table-cn"
+        >
+          <thead>
+            <tr>
+              <th style="text-align: center">Text</th>
+              <th style="text-align: center">Prompt Language</th>
+              <th style="text-align: center">Prompt</th>
+              <th style="text-align: center">YourTTS</th>
+              <th style="text-align: center">MVoice (ours)</th>
+            </tr>
+          </thead>
+          <tbody>
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LJSpeech (test set)</td>
+             </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+            -->
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LibriSpeech (test-clean)</td>
+             </tr> -->
+             <tr height=150px> <td></td> <td style="text-align: center">German</td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td style="text-align: center">English</td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td style="text-align: center">Spanish</td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td style="text-align: center">French</td> <td></td> <td></td> <td></td> </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="container shadow p-5 mb-5 bg-white rounded">
+      <h3>Comparison with VALL-E<a id="valle"/></h3>
+
+      <p style="margin-top: 2em">
+        In this section, we compare our results with demo samples of VALL-E.
+              </p>
+      <div class="container pt-3 table-responsive">
+        <table
+          class="table table-hover"
+          id="valle-table"
+        >
+          <thead>
+            <tr>
+              <th style="text-align: center">Text</th>
+              <th style="text-align: center">Prompt</th>
+              <th style="text-align: center">VALL-E</th>
+              <th style="text-align: center">MVoice (ours)</th>
+            </tr>
+          </thead>
+          <tbody>
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LJSpeech (test set)</td>
+             </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+            -->
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LibriSpeech (test-clean)</td>
+             </tr> -->
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="container shadow p-5 mb-5 bg-white rounded">
+      <h3>Comparison with SPEAR-TTS<a id="speartts"/></h3>
+
+      <p style="margin-top: 2em">
+        In this section, we compare our results with demo samples of SPEAR-TTS.
+              </p>
+      <div class="container pt-3 table-responsive">
+        <table
+          class="table table-hover"
+          id="speartts-table"
+        >
+          <thead>
+            <tr>
+              <th style="text-align: center">Text</th>
+              <th style="text-align: center">Prompt</th>
+              <th style="text-align: center">SPEAR-TTS</th>
+              <th style="text-align: center">MVoice (ours)</th>
+            </tr>
+          </thead>
+          <tbody>
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LJSpeech (test set)</td>
+             </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+            -->
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LibriSpeech (test-clean)</td>
+             </tr> -->
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="container shadow p-5 mb-5 bg-white rounded">
+      <h3>Comparison with VoiceBox<a id="voicebox"/></h3>
+
+      <p style="margin-top: 2em">
+        In this section, we compare our results with demo samples of VoiceBox.
+              </p>
+      <div class="container pt-3 table-responsive">
+        <table
+          class="table table-hover"
+          id="voicebox-table"
+        >
+          <thead>
+            <tr>
+              <th style="text-align: center">Text</th>
+              <th style="text-align: center">Prompt</th>
+              <th style="text-align: center">VoiceBox</th>
+              <th style="text-align: center">MVoice (ours)</th>
+            </tr>
+          </thead>
+          <tbody>
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LJSpeech (test set)</td>
+             </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+            -->
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LibriSpeech (test-clean)</td>
+             </tr> -->
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td></tr>
+             <tr height=100px> <td></td> <td></td> <td></td> <td></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="container shadow p-5 mb-5 bg-white rounded">
+      <h3>Cross Lingual Style Transferring<a id="crosslingual"/></h3>
+
+      <p style="margin-top: 2em">
+        In this section, we provide samples to show the cross-lingual style tranferring ability of our model.
+              </p>
+      <div class="container pt-3 table-responsive">
+        <table
+          class="table table-hover"
+          id="crosslingual-table"
+        >
+          <thead>
+            <tr>
+              <th style="text-align: center">Source Audio</th>
+              <th style="text-align: center">Prompt</th>
+              <th style="text-align: center">MVoice</th>
+            </tr>
+          </thead>
+          <tbody>
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LJSpeech (test set)</td>
+             </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+            -->
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LibriSpeech (test-clean)</td>
+             </tr> -->
+             <tr height=100px> <td style="text-align: center"></td> <td style="text-align: center"></td> <td style="text-align: center"></td></tr>
+             <tr height=100px> <td style="text-align: center"></td> <td style="text-align: center"></td> <td style="text-align: center"></td></tr>
+             <tr height=100px> <td style="text-align: center"></td> <td style="text-align: center"></td> <td style="text-align: center"></td></tr>
+             <tr height=100px> <td style="text-align: center"></td> <td style="text-align: center"></td> <td style="text-align: center"></td></tr>
+            </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="container shadow p-5 mb-5 bg-white rounded">
+      <h3>Emotion Transferring<a id="emotion"/></h3>
+
+      <p style="margin-top: 2em">
+        In this section, we provide samples to show the emotion tranferring ability of our model.
+              </p>
+      <div class="container pt-3 table-responsive">
+        <table
+          class="table table-hover"
+          id="emotion-table"
+        >
+          <thead>
+            <tr>
+              <th style="text-align: center">Emotion</th>
+              <th style="text-align: center">Source Audio</th>
+              <th style="text-align: center">Prompt</th>
+              <th style="text-align: center">MVoice</th>
+            </tr>
+          </thead>
+          <tbody>
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LJSpeech (test set)</td>
+             </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+            -->
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LibriSpeech (test-clean)</td>
+             </tr> -->
+             <tr height=100px> <td style="text-align: center">Angry</td> <td style="text-align: center"></td> <td style="text-align: center"></td> <td style="text-align: center"></td></tr>
+             <tr height=100px> <td style="text-align: center">Sad</td> <td style="text-align: center"></td> <td style="text-align: center"></td> <td style="text-align: center"></td></tr>
+             <tr height=100px> <td style="text-align: center">Happy</td> <td style="text-align: center"></td> <td style="text-align: center"></td> <td style="text-align: center"></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="container shadow p-5 mb-5 bg-white rounded">
+      <h3>Noise Condition Transferring<a id="noise"/></h3>
+
+      <p style="margin-top: 2em">
+        In this section, we provide samples to show the noise condition tranferring ability of our model.
+              </p>
+      <div class="container pt-3 table-responsive">
+        <table
+          class="table table-hover"
+          id="noise-table"
+        >
+          <thead>
+            <tr>
+              <th style="text-align: center">Text or Source</th>
+              <th style="text-align: center">Prompt</th>
+              <th style="text-align: center">MVoice</th>
+            </tr>
+          </thead>
+          <tbody>
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LJSpeech (test set)</td>
+             </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+            -->
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LibriSpeech (test-clean)</td>
+             </tr> -->
+             <tr height=100px> <td style="text-align: center"></td> <td style="text-align: center"></td> <td style="text-align: center"></td></tr>
+             <tr height=100px> <td style="text-align: center"></td> <td style="text-align: center"></td> <td style="text-align: center"></td></tr>
+             <tr height=100px> <td style="text-align: center"></td> <td style="text-align: center"></td> <td style="text-align: center"></td></tr>
+             <tr height=100px> <td style="text-align: center"></td> <td style="text-align: center"></td> <td style="text-align: center"></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+
+    <!-- <div class="container shadow p-5 mb-5 bg-white rounded">
+      <h3>Broader impact<a id="impact"/></h3>
+      <p class="mb-0">
+      We believe our work on high-quality TTS that requires very limited supervision (quantity- and quality-wise) can be an important stepping stone for enabling this core speech technology for communities that are currently underserved by TTS solutions due to speaking "low-resource" languages, i.e., languages do not have vast parallel corpora required for training deep learning models. Even for high-resource languages, such as English, the ability to harness unpaired data for speech generation can enable producing speech in accents and dialects that are currently uncovered by the existing TTS systems.
+      </p>
+      <br />
+      <p>
+      At the same time, we acknowledge that the ability to mimic a voice can have numerous malicious applications, including bypassing biometric identification for the purpose of impersonation. Thus it is crucial to put safeguards against the misuse of SPEAR-TTS and, as an initial step, we verify that speech produced by SPEAR-TTS can be reliably detected by a classifier (see Appendix E). In the future, one can explore other approaches for detecting synthesized speech, for example by audio watermarking.
+     </p>
+    </div> -->
+
+
+  </body>
+</html>
