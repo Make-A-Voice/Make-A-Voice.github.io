@@ -77,6 +77,8 @@
        <li><a href="#valle" class="btn border-white bg-white fw-bold">Comparison with VALL-E</a></li>
        <li><a href="#speartts" class="btn border-white bg-white fw-bold">Comparison with SPEAR-TTS</a></li>
        <li><a href="#voicebox" class="btn border-white bg-white fw-bold">Comparison with VoiceBox</a></li>
+       <li><a href="#ablation_size" class="btn border-white bg-white fw-bold">Ablation on Model Scales</a></li>
+       <li><a href="#ablation_data" class="btn border-white bg-white fw-bold">Ablation on Multilingual / Monolingual Data</a></li>
        <li><a href="#crvc" class="btn border-white bg-white fw-bold">Cross Lingual Style Transfer</a></li>
        <li><a href="#emotion" class="btn border-white bg-white fw-bold">Emotion Transfer</a></li>
        <li><a href="#noise" class="btn border-white bg-white fw-bold">Noise Condition Transfer</a></li>
@@ -503,7 +505,174 @@
     </div>
 
     <div class="container shadow p-5 mb-5 bg-white rounded">
-      <h3>Cross Lingual Style Transferring<a id="crosslingual"/></h3>
+      <h3>Ablation on Model Scales<a id="ablation_size"/></h3>
+      <p style="margin-top: 2em">
+        In this section, we compare the generated audio samples of models with different sizes.
+              </p>
+
+      <h4>Text to Speech</h4>
+      <div class="container pt-3 table-responsive">
+        <table
+          class="table table-hover"
+          id="ablation-size-tts-table"
+        >
+          <thead>
+            <tr>
+              <th style="text-align: center; width:max-content">Text</th>
+              <th style="text-align: center">GT</th>
+              <th style="text-align: center">Base</th>
+              <th style="text-align: center">Medium</th>
+              <th style="text-align: center">Large</th>
+            </tr>
+          </thead>
+          <tbody>
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LJSpeech (test set)</td>
+             </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+            -->
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LibriSpeech (test-clean)</td>
+             </tr> -->
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <hr>
+
+      <h4>Voice Conversion</h4>
+      <div class="container pt-3 table-responsive">
+        <table
+          class="table table-hover"
+          id="ablation-size-vc-table"
+        >
+          <thead>
+            <tr>
+              <th style="text-align: center; width:max-content">Source</th>
+              <th style="text-align: center">Prompt</th>
+              <th style="text-align: center">Base</th>
+              <th style="text-align: center">Medium</th>
+              <th style="text-align: center">Large</th>
+            </tr>
+          </thead>
+          <tbody>
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LJSpeech (test set)</td>
+             </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+            -->
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LibriSpeech (test-clean)</td>
+             </tr> -->
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="container shadow p-5 mb-5 bg-white rounded">
+      <h3>Ablation on Multilingual / Monolingual Data<a id="ablation_data"/></h3>
+      <p style="margin-top: 2em">
+        In this section, we compare the generated audio samples of monolingual and multilingual models.
+              </p>
+
+      <h4>Text to Speech</h4>
+      <div class="container pt-3 table-responsive">
+        <table
+          class="table table-hover"
+          id="ablation-data-tts-table"
+        >
+          <thead>
+            <tr>
+              <th style="text-align: center; width:max-content">Text</th>
+              <th style="text-align: center">Language</th>
+              <th style="text-align: center">Prompt</th>
+              <th style="text-align: center">Monolingual</th>
+              <th style="text-align: center">Multilingual</th>
+            </tr>
+          </thead>
+          <tbody>
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LJSpeech (test set)</td>
+             </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+            -->
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LibriSpeech (test-clean)</td>
+             </tr> -->
+             <tr height=150px> <td></td> <td style="text-align: center">German</td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td style="text-align: center">German</td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td style="text-align: center">German</td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td style="text-align: center">French</td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td style="text-align: center">French</td> <td></td> <td></td> <td></td> </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <hr>
+
+      <h4>Voice Conversion</h4>
+      <div class="container pt-3 table-responsive">
+        <table
+          class="table table-hover"
+          id="ablation-data-vc-table"
+        >
+          <thead>
+            <tr>
+              <th style="text-align: center; width:max-content">Source</th>
+              <th style="text-align: center">Language</th>
+              <th style="text-align: center">Prompt</th>
+              <th style="text-align: center">Monolingual</th>
+              <th style="text-align: center">Multilingual</th>
+            </tr>
+          </thead>
+          <tbody>
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LJSpeech (test set)</td>
+             </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+             <tr height=200px> <td></td> <td></td> <td></td> <td></td> </tr>
+            -->
+             <!-- <tr>
+               <td colspan="4" style="text-align: center">LibriSpeech (test-clean)</td>
+             </tr> -->
+             <tr height=150px> <td></td> <td style="text-align: center">German</td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td style="text-align: center">German</td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td style="text-align: center">German</td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td style="text-align: center">German</td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td style="text-align: center">French</td> <td></td> <td></td> <td></td> </tr>
+             <tr height=150px> <td></td> <td style="text-align: center">French</td> <td></td> <td></td> <td></td> </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="container shadow p-5 mb-5 bg-white rounded">
+      <h3>Cross Lingual Style Transferring<a id="crvc"/></h3>
 
       <p style="margin-top: 2em">
         In this section, we provide samples to show the cross-lingual style tranferring ability of our model.
@@ -540,6 +709,7 @@
       </div>
 
     </div>
+    
 
     <div class="container shadow p-5 mb-5 bg-white rounded">
       <h3>Emotion Transferring<a id="emotion"/></h3>

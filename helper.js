@@ -132,6 +132,42 @@ function generateVoicebox(tableId) {
   }
 }
 
+function generateAblationSizeTTS(tableId) {
+  let table = document.getElementById(tableId);
+  let ext = ['_txt.txt', '_gt.wav', '_base.wav','_medium.wav', '_large.wav'];
+
+  for (var i = 0; i < 8; i++) {
+    generateExampleRow(table.rows[1 + i], 'data/ablation_size_tts/' + i, ext, 0);
+  }
+}
+
+function generateAblationSizeVC(tableId) {
+  let table = document.getElementById(tableId);
+  let ext = ['_source.wav', '_prompt.wav', '_base.wav','_medium.wav', '_large.wav'];
+
+  for (var i = 0; i < 8; i++) {
+    generateExampleRow(table.rows[1 + i], 'data/ablation_size_vc/' + i, ext, 0);
+  }
+}
+
+function generateAblationDataTTS(tableId) {
+  let table = document.getElementById(tableId);
+  let ext = ['_txt.txt', '_prompt.wav','_singletask.wav', '_multitask.wav'];
+
+  for (var i = 0; i < 5; i++) {
+    generateExampleRowCross(table.rows[1 + i], 'data/ablation_data_tts/' + i, ext, 0);
+  }
+}
+
+function generateAblationDataVC(tableId) {
+  let table = document.getElementById(tableId);
+  let ext = ['_source.wav', '_prompt.wav','_singletask.wav', '_multitask.wav'];
+
+  for (var i = 0; i < 6; i++) {
+    generateExampleRowCross(table.rows[1 + i], 'data/ablation_data_vc/' + i, ext, 0);
+  }
+}
+
 function generateCrossLingual(tableId) {
   let table = document.getElementById(tableId);
   let ext = ['_source.wav', '_prompt.wav', '_ours.wav'];
@@ -175,6 +211,10 @@ generateCrossLingualTTSCn('crosslingual-text-to-speech-table-cn')
 generateValle('valle-table')
 generateSpearTTS('speartts-table')
 generateVoicebox('voicebox-table')
+generateAblationSizeTTS('ablation-size-tts-table')
+generateAblationSizeVC('ablation-size-vc-table')
+generateAblationDataTTS('ablation-data-tts-table')
+generateAblationDataVC('ablation-data-vc-table')
 generateCrossLingual('crosslingual-table')
 generateEmotion('emotion-table')
 generateNoise('noise-table')
